@@ -4,7 +4,6 @@ const inserindoPlayer1e2Controller = async(req,res)=>{
     let pokemon = require("../../models/Pokemon");
     await db.sync()
     const { playerTwoCard, playerOneCard } = req.body;
-    //console.log(playerOneCard, playerTwoCard)
     const findPlayer1 = await pokemon.findByPk(playerOneCard);    
     const findPlayer2 = await pokemon.findByPk(playerTwoCard); 
     var idPlayer1 = findPlayer1.id
@@ -23,7 +22,9 @@ const inserindoPlayer1e2Controller = async(req,res)=>{
     var speedPlayer2 = findPlayer2.speed
     var player1 = 0
     var player2 = 0
-    function condicaoAtributos(a,b){
+
+
+    function  condicaoAtributos(a,b){
         if(a < b){
             return idPlayer1 
         } else if(a == b){
@@ -36,7 +37,7 @@ const inserindoPlayer1e2Controller = async(req,res)=>{
     function condicaoWinner(a, b){
         if(a < b){
             return idPlayer1
-        } else if(b == a){
+        } else if(a == b){
             return res.json({message: "Empate"})
         } else {
             return idPlayer2
@@ -50,6 +51,7 @@ const inserindoPlayer1e2Controller = async(req,res)=>{
             return 0
         }
     }
+
     function comparePlayer2(a, b){
         if(a == b){
             return player2 = 1
@@ -65,6 +67,7 @@ const inserindoPlayer1e2Controller = async(req,res)=>{
             return 0
         }
     }
+
     function condicaoAtributosP2(a,b){
         if(a > b){
             return player2 = 1 
@@ -73,22 +76,6 @@ const inserindoPlayer1e2Controller = async(req,res)=>{
         }
     }
 
-
-    const soma1 = await comparePlayer1(condicaoAtributosP1(hpPlayer2, hpPlayer1), player1) + 
-    comparePlayer1((condicaoAtributosP1(attackPlayer2, attackPlayer1)), player1) +
-    comparePlayer1((condicaoAtributosP1(defensePlayer2, defensePlayer1)), player1) +
-    comparePlayer1((condicaoAtributosP1(s_aPlayer2, s_aPlayer1)), player1) +
-    comparePlayer1((condicaoAtributosP1(s_dPlayer2, s_dPlayer1)), player1) +
-    comparePlayer1((condicaoAtributosP1(speedPlayer2, speedPlayer1), player1))
-    //console.log(soma1)
-    const soma2 = await comparePlayer2(condicaoAtributosP2(hpPlayer2, hpPlayer1), player2) + 
-    comparePlayer2(condicaoAtributosP2(attackPlayer2, attackPlayer1), player2) +
-    comparePlayer2(condicaoAtributosP2(defensePlayer2, defensePlayer1), player2) +
-    comparePlayer2(condicaoAtributosP2(s_aPlayer2, s_aPlayer1), player2) +
-    comparePlayer2(condicaoAtributosP2(s_dPlayer2, s_dPlayer1), player2) +
-    comparePlayer2(condicaoAtributosP2(speedPlayer2, speedPlayer1), player2)
-    //console.log(soma2)
-
     function winnerP(a, b){
         if(a == b){
             return "PlayerOne"
@@ -96,6 +83,22 @@ const inserindoPlayer1e2Controller = async(req,res)=>{
             return "PlayerTwo"
         }
     }
+
+
+    const soma1 = comparePlayer1(condicaoAtributosP1(hpPlayer2, hpPlayer1), player1) + 
+     comparePlayer1((condicaoAtributosP1(attackPlayer2, attackPlayer1)), player1) +
+     comparePlayer1((condicaoAtributosP1(defensePlayer2, defensePlayer1)), player1) +
+     comparePlayer1((condicaoAtributosP1(s_aPlayer2, s_aPlayer1)), player1) +
+     comparePlayer1((condicaoAtributosP1(s_dPlayer2, s_dPlayer1)), player1) +
+     comparePlayer1((condicaoAtributosP1(speedPlayer2, speedPlayer1), player1))
+
+
+    const soma2 =  comparePlayer2(condicaoAtributosP2(hpPlayer2, hpPlayer1), player2) + 
+     comparePlayer2(condicaoAtributosP2(attackPlayer2, attackPlayer1), player2) +
+     comparePlayer2(condicaoAtributosP2(defensePlayer2, defensePlayer1), player2) +
+     comparePlayer2(condicaoAtributosP2(s_aPlayer2, s_aPlayer1), player2) +
+     comparePlayer2(condicaoAtributosP2(s_dPlayer2, s_dPlayer1), player2) +
+     comparePlayer2(condicaoAtributosP2(speedPlayer2, speedPlayer1), player2)
 
 
     const duelo = await player1_player2.create({
@@ -111,7 +114,7 @@ const inserindoPlayer1e2Controller = async(req,res)=>{
 
     });
 
-    return res.json({duelo: duelo });
+    return res.json({duelo: duelo});
 }
 
 module.exports = inserindoPlayer1e2Controller;
