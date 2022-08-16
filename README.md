@@ -14,7 +14,7 @@ O projeto trata-se de um jogo de comparação de cartas. Onde é possível cadas
 Antes de iniciar, se assegure que possui os requisitos abaixo:
 
 - MySQL workbench instalado e startado na sua máquina
-- MySQL community server e Node instalado
+- MySQL community server e Node.js instalado
 
 ## Compilação/Configuração
 
